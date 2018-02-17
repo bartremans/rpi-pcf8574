@@ -15,7 +15,7 @@ class getState(multiprocessing.Process):
         super(getState, self).__init__()
 
     def run(self):
-        states = []
+        state = []
         for k,v in gpio.items():
             if(byte & v == 0):
                 state.append(1)
