@@ -51,12 +51,13 @@ class SetOutput(multiprocessing.Process):
                 if(byte & self.id != 0): gpio_set()
                 time.sleep(self.pperiod)
                 if(byte & self.id != 1): gpio_set()
-                if self.period == 0: self.exit.set()
-                time.sleep(self.period)
+                if self.period: time.sleep(self.period) else: self.exit.set()
 
     def terminate(self):
         self.exit.set()
    
 if __name__ == "__main__":
-    relays = SetOutput("1", "toggle", 0, 0)
+    relays = SetOutput("1")
     relays.start()
+    state = getState()
+    state.start()
